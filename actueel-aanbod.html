@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Actueel aanbod — LN Motors</title>
+  <meta name="description" content="Het actuele aanbod van LN Motors. Bekijk al onze wagens, steeds up-to-date via AutoScout24." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand"><img src="img/logo-black.png" alt="LN Motors" /></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="actueel-aanbod.html">Actueel aanbod</a></li>
+          <li><a href="verkocht.html">Verkocht</a></li>
+          <li><a href="over-ons.html">Over ons</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="page-head">
+    <div class="container">
+      <div class="eyebrow">Aanbod</div>
+      <h1>Actueel aanbod</h1>
+      <p>Ons volledige, steeds bijgewerkte aanbod beheren we via AutoScout24. Hieronder een selectie — bekijk het complete aanbod met alle details online.</p>
+      <a class="btn btn-primary" style="margin-top:24px;" href="https://www.autoscout24.be/nl/verkopers/ln-motors-eeklo" target="_blank" rel="noopener">Volledig aanbod op AutoScout24</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="grid grid-3" id="cars-grid"></div>
+      <p class="muted" style="text-align:center;margin-top:48px;">Niet gevonden wat u zocht? <a href="contact.html" style="text-decoration:underline;">Neem contact op</a> — we helpen u graag met een gerichte zoekopdracht.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand"><img src="img/logo-black.png" alt="LN Motors" /></div>
+          <p style="max-width:340px;">Goede auto. Goede service. Geen excuses. Uw partner voor de aankoop, het onderhoud en de herstelling van uw wagen in Eeklo.</p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/profile.php?id=61564358799027" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+            <a href="https://www.instagram.com/lnmotors.be/" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+          </div>
+        </div>
+        <div>
+          <h4>Navigatie</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="actueel-aanbod.html">Actueel aanbod</a></li>
+            <li><a href="verkocht.html">Verkocht</a></li>
+            <li><a href="over-ons.html">Over ons</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li>Kunstdal 7F<br>9900 Eeklo, België</li>
+            <li><a href="tel:+32497412470">+32 497 41 24 70</a></li>
+            <li><a href="mailto:info@lnmotors.be">info@lnmotors.be</a></li>
+            <li>BTW: BE1014.535.470</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 LN Motors. Alle rechten voorbehouden.</span>
+        <a href="privacy-policy.html">Privacybeleid</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/cars.js"></script>
+  <script src="js/main.js"></script>
+  <script>laadAutos("beschikbaar", "cars-grid");</script>
+</body>
+</html>

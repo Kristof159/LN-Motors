@@ -1,0 +1,63 @@
+// ===========================================================
+// LN Motors — auto's inladen vanuit Supabase
+// Gebruikt op actueel-aanbod.html (status=beschikbaar)
+// en verkocht.html (status=verkocht).
+// ===========================================================
+
+// Bouwt één auto-kaart (HTML-string)
+function carCard(car) {
+  const foto = (car.afbeeldingen && car.afbeeldingen[0])
+    ? car.afbeeldingen[0]
+    : "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80";
+
+  const verkocht = car.status === "verkocht";
+  const badge = verkocht
+    ? '<span class="badge sold">Verkocht</span>'
+    : '<span class="badge">Beschikbaar</span>';
+
+  const meta = [car.bouwjaar, car.brandstof, car.transmissie]
+    .filter(Boolean)
+    .map(v => `<span>${v}</span>`)
+    .join("");
+
+  return `
+    <article class="card">
+      <div class="card-img"><img src="${foto}" alt="${car.merk} ${car.model}" loading="lazy"></div>
+      <div class="card-body">
+        ${badge}
+        <h3 style="margin-top:12px;">${car.merk} ${car.model}</h3>
+        <div class="card-meta">${meta}</div>
+        <div class="card-price">${formatPrijs(car.prijs)}</div>
+      </div>
+    </article>`;
+}
+
+// Laadt auto's met een bepaalde status in het element met dat id
+async function laadAutos(status, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  container.innerHTML = '<p class="muted" style="grid-column:1/-1;text-align:center;">Aanbod laden…</p>';
+
+  const { data, error } = await db
+    .from("cars")
+    .select("*")
+    .eq("status", status)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    container.innerHTML = '<p class="muted" style="grid-column:1/-1;text-align:center;">Kon het aanbod niet laden. Probeer later opnieuw.</p>';
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    const leeg = status === "verkocht"
+      ? "Er zijn nog geen verkochte wagens om te tonen."
+      : "Er staan momenteel geen wagens online. Kom snel terug!";
+    container.innerHTML = `<p class="muted" style="grid-column:1/-1;text-align:center;">${leeg}</p>`;
+    return;
+  }
+
+  container.innerHTML = data.map(carCard).join("");
+}

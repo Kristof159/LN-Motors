@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Beheer — LN Motors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .btn-sm { padding: 8px 14px; font-size: .82rem; }
+    .admin-row { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand">LN&nbsp;Motors <span>Beheer</span></a>
+      <button id="logout-btn" class="btn btn-outline btn-sm" style="display:inline-block;">Uitloggen</button>
+    </div>
+  </header>
+
+  <!-- LOGIN -->
+  <section id="login-view" style="display:none;">
+    <div class="container" style="max-width:420px;">
+      <h1 style="font-size:2rem;">Inloggen</h1>
+      <p class="muted" style="margin:10px 0 28px;">Beheer het wagenaanbod van LN Motors.</p>
+      <form id="login-form">
+        <div class="field">
+          <label for="login-email">E-mail</label>
+          <input id="login-email" type="email" required />
+        </div>
+        <div class="field">
+          <label for="login-password">Wachtwoord</label>
+          <input id="login-password" type="password" required />
+        </div>
+        <button class="btn btn-primary" type="submit" style="width:100%;">Inloggen</button>
+        <p id="login-error" class="muted" style="color:#b00020;margin-top:14px;"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="admin-view" style="display:none;">
+    <div class="container" style="max-width:760px;">
+
+      <div class="page-head" style="background:none;border:0;padding:0 0 32px;">
+        <h1 id="form-title">Auto toevoegen</h1>
+      </div>
+
+      <form id="car-form">
+        <input type="hidden" id="car-id" />
+        <input type="hidden" id="bestaande-fotos" />
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="car-merk">Merk *</label>
+            <input id="car-merk" type="text" placeholder="BMW" required />
+          </div>
+          <div class="field">
+            <label for="car-model">Model *</label>
+            <input id="car-model" type="text" placeholder="1-Reeks" required />
+          </div>
+          <div class="field">
+            <label for="car-bouwjaar">Bouwjaar</label>
+            <input id="car-bouwjaar" type="number" placeholder="2021" />
+          </div>
+          <div class="field">
+            <label for="car-prijs">Prijs (€)</label>
+            <input id="car-prijs" type="number" step="1" placeholder="28900" />
+          </div>
+          <div class="field">
+            <label for="car-km">Kilometerstand</label>
+            <input id="car-km" type="number" placeholder="45000" />
+          </div>
+          <div class="field">
+            <label for="car-brandstof">Brandstof</label>
+            <select id="car-brandstof">
+              <option value="">—</option>
+              <option>Benzine</option>
+              <option>Diesel</option>
+              <option>Elektrisch</option>
+              <option>Hybride</option>
+              <option>LPG</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="car-transmissie">Transmissie</label>
+            <select id="car-transmissie">
+              <option value="">—</option>
+              <option>Manueel</option>
+              <option>Automaat</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="car-status">Status *</label>
+            <select id="car-status">
+              <option value="beschikbaar">Beschikbaar</option>
+              <option value="verkocht">Verkocht</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="car-beschrijving">Beschrijving</label>
+          <textarea id="car-beschrijving" rows="3" placeholder="Korte omschrijving van de wagen…"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="car-fotos">Foto's toevoegen</label>
+          <input id="car-fotos" type="file" accept="image/*" multiple />
+          <p class="muted" style="font-size:.82rem;margin-top:6px;">Bij bewerken: nieuwe foto's worden toegevoegd aan de bestaande.</p>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-primary" type="submit">Opslaan</button>
+          <button class="btn btn-outline" type="button" id="reset-btn">Nieuw / leegmaken</button>
+          <span id="form-note" class="muted" style="font-size:.9rem;"></span>
+        </div>
+      </form>
+
+      <h2 style="font-size:1.5rem;margin:56px 0 8px;">Alle auto's</h2>
+      <div id="car-list"></div>
+
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
