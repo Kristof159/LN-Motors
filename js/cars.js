@@ -20,14 +20,23 @@ function carCard(car) {
     .map(v => `<span>${v}</span>`)
     .join("");
 
+  const titel = [car.merk, car.model].filter(Boolean).join(" ");
+  const titelHtml = titel ? `<h3 style="margin-top:12px;">${titel}</h3>` : "";
+  const metaHtml = meta ? `<div class="card-meta">${meta}</div>` : "";
+  // Verkochte wagens zonder prijs tonen geen prijsregel.
+  const prijsHtml = (verkocht && car.prijs == null)
+    ? ""
+    : `<div class="card-price">${formatPrijs(car.prijs)}</div>`;
+  const alt = titel || (verkocht ? "Verkochte wagen" : "Wagen");
+
   return `
     <article class="card reveal">
-      <div class="card-img"><img src="${foto}" alt="${car.merk} ${car.model}" loading="lazy"></div>
+      <div class="card-img"><img src="${foto}" alt="${alt}" loading="lazy"></div>
       <div class="card-body">
         ${badge}
-        <h3 style="margin-top:12px;">${car.merk} ${car.model}</h3>
-        <div class="card-meta">${meta}</div>
-        <div class="card-price">${formatPrijs(car.prijs)}</div>
+        ${titelHtml}
+        ${metaHtml}
+        ${prijsHtml}
       </div>
     </article>`;
 }

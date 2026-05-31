@@ -132,6 +132,23 @@ p { color: var(--ink); }
 .hero-tagline span:last-child::after { content: ""; }
 .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
 
+/* Hero-tekst verschijnt zachtjes wanneer de pagina geladen is */
+.hero-inner > * {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: heroIn 0.7s ease forwards;
+}
+.hero-inner > .hero-tagline { animation-delay: 0.15s; }
+.hero-inner > h1            { animation-delay: 0.30s; }
+.hero-inner > .lead         { animation-delay: 0.45s; }
+.hero-inner > .hero-cta     { animation-delay: 0.60s; }
+@keyframes heroIn {
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-inner > * { opacity: 1; transform: none; animation: none; }
+}
+
 /* ---------- Sections ---------- */
 section { padding: 90px 0; }
 .section-head { max-width: 640px; margin-bottom: 48px; }
@@ -392,6 +409,22 @@ label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px;
   .footer-grid { grid-template-columns: 1fr; }
   .newsletter form { flex-direction: column; }
   section { padding: 64px 0; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 18px; }
+  section { padding: 52px 0; }
+  .section-head { margin-bottom: 36px; }
+  .hero { min-height: 78vh; }
+  .hero-cta { width: 100%; }
+  .hero-cta .btn { flex: 1; text-align: center; }
+  .btn { padding: 13px 24px; }
+  .contact-form { padding: 22px; }
+  .calc-panel { padding: 24px 20px; }
+  .quote { padding: 24px; }
+  .result-total { font-size: 2rem; }
+  .result-row { font-size: 0.9rem; }
+  .page-head { padding: 56px 0 44px; }
+  .site-footer { padding: 56px 0 28px; }
 }
 
 /* ===========================================================

@@ -7,3 +7,7 @@
 
 # Losse bronbestanden (kopie staat in img/)
 /Route Kunstdal.png
+
+# Ruwe camerafoto's — staan op Supabase, niet in git (te groot)
+/img/DSC*.jpg
+/img/image*.jpg

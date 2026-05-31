@@ -14,6 +14,34 @@ const formTitle = document.getElementById("form-title");
 const formNote = document.getElementById("form-note");
 const resetBtn = document.getElementById("reset-btn");
 
+// Foto-beheer bij bewerken
+const huidigeFotosVeld = document.getElementById("huidige-fotos-veld");
+const huidigeFotosBox = document.getElementById("huidige-fotos");
+let huidigeFotos = [];        // foto's die (nog) bij de auto horen
+let teVerwijderenFotos = [];  // foto's die de admin weghaalde -> bij opslaan uit Storage
+
+// Toont de huidige foto's als thumbnails met een verwijderknop
+function renderHuidigeFotos() {
+  if (!huidigeFotos.length) {
+    huidigeFotosVeld.style.display = "none";
+    huidigeFotosBox.innerHTML = "";
+    return;
+  }
+  huidigeFotosVeld.style.display = "";
+  huidigeFotosBox.innerHTML = huidigeFotos.map((url, i) => `
+    <div class="foto-thumb">
+      <img src="${url}" alt="">
+      <button type="button" title="Verwijderen" onclick="verwijderFoto(${i})">✕</button>
+    </div>`).join("");
+}
+
+// Haalt een foto uit de lijst (definitief pas bij Opslaan)
+function verwijderFoto(index) {
+  const [weg] = huidigeFotos.splice(index, 1);
+  if (weg) teVerwijderenFotos.push(weg);
+  renderHuidigeFotos();
+}
+
 // --- Auth-status bepalen welke view we tonen ---------------
 async function refreshSession() {
   const { data } = await db.auth.getSession();
@@ -120,10 +148,9 @@ carForm.addEventListener("submit", async (e) => {
 
   const id = document.getElementById("car-id").value;
   const fileInput = document.getElementById("car-fotos");
-  const bestaandeFotos = document.getElementById("bestaande-fotos").value;
 
   try {
-    let afbeeldingen = bestaandeFotos ? JSON.parse(bestaandeFotos) : [];
+    let afbeeldingen = huidigeFotos.slice();
     if (fileInput.files.length) {
       const nieuwe = await uploadFotos(fileInput.files);
       afbeeldingen = afbeeldingen.concat(nieuwe);
@@ -150,6 +177,12 @@ carForm.addEventListener("submit", async (e) => {
     }
     if (error) throw error;
 
+    // Weggehaalde foto's nu pas definitief uit Storage verwijderen
+    if (teVerwijderenFotos.length) {
+      const paden = teVerwijderenFotos.map(u => u.split("/car-images/")[1]).filter(Boolean);
+      if (paden.length) await db.storage.from("car-images").remove(paden);
+    }
+
     formNote.textContent = "Opgeslagen!";
     resetForm();
     laadBeheerlijst();
@@ -163,7 +196,9 @@ resetBtn.addEventListener("click", resetForm);
 function resetForm() {
   carForm.reset();
   document.getElementById("car-id").value = "";
-  document.getElementById("bestaande-fotos").value = "";
+  huidigeFotos = [];
+  teVerwijderenFotos = [];
+  renderHuidigeFotos();
   formTitle.textContent = "Auto toevoegen";
   setTimeout(() => (formNote.textContent = ""), 2500);
 }
@@ -183,7 +218,11 @@ async function bewerkAuto(id) {
   document.getElementById("car-transmissie").value = data.transmissie || "";
   document.getElementById("car-status").value = data.status || "beschikbaar";
   document.getElementById("car-beschrijving").value = data.beschrijving || "";
-  document.getElementById("bestaande-fotos").value = JSON.stringify(data.afbeeldingen || []);
+
+  // Bestaande foto's tonen voor beheer
+  huidigeFotos = (data.afbeeldingen || []).slice();
+  teVerwijderenFotos = [];
+  renderHuidigeFotos();
 
   formTitle.textContent = "Auto bewerken";
   window.scrollTo({ top: 0, behavior: "smooth" });
