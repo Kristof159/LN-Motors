@@ -20,6 +20,8 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="actueel-aanbod.html">Actueel aanbod</a></li>
           <li><a href="verkocht.html">Verkocht</a></li>
+          <li><a href="performance.html">Performance</a></li>
+          <li><a href="import-calculator.html">Import calculator</a></li>
           <li><a href="over-ons.html">Over ons</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -39,73 +41,83 @@
   <section>
     <div class="container">
       <div class="contact-grid">
-        <!-- Form -->
-        <div>
-          <h2 style="margin-bottom:24px;">Stuur ons een bericht</h2>
+
+        <!-- Info + sfeerfoto -->
+        <div class="contact-info reveal">
+          <h2>Contactgegevens</h2>
+          <p class="muted" style="margin-top:18px;">Aarzel niet om contact met ons op te nemen voor eender welke vraag u heeft. Wij beantwoorden mails gewoonlijk binnen de 12 uur.</p>
+          <p style="margin-top:20px;">U kan ons steeds telefonisch contacteren op het nummer <a href="tel:+32497412470"><strong>+32 497 41 24 70</strong></a> of via WhatsApp.</p>
+
+          <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+            <a class="btn btn-whatsapp" href="https://wa.me/32497412470?text=Hallo%20LN%20Motors%2C%20ik%20heb%20een%20vraag." target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.512 5.26l-.999 3.648 3.736-.979a9.86 9.86 0 00.24.272zm5.4-13.392c-.197-.438-.404-.447-.591-.455l-.504-.006c-.175 0-.46.066-.7.33-.24.264-.916.895-.916 2.183 0 1.288.938 2.532 1.069 2.708.131.176 1.822 2.918 4.502 3.984 2.227.879 2.68.704 3.164.66.484-.044 1.561-.638 1.782-1.254.221-.616.221-1.144.155-1.254-.066-.11-.242-.176-.506-.308-.264-.132-1.561-.77-1.803-.858-.242-.088-.418-.132-.594.132-.176.264-.682.858-.836 1.034-.154.176-.308.198-.572.066-.264-.132-1.115-.411-2.124-1.311-.785-.701-1.315-1.566-1.469-1.83-.154-.264-.016-.407.116-.539.119-.118.264-.308.396-.462.132-.154.176-.264.264-.44.088-.176.044-.33-.022-.462-.066-.132-.58-1.426-.816-1.948z"/></svg>
+              WhatsApp
+            </a>
+            <a class="btn btn-outline" href="mailto:info@lnmotors.be">E-mail ons</a>
+          </div>
+
+          <img class="contact-photo" src="img/cars/detail.jpg" alt="Showroom van LN Motors in Eeklo" loading="lazy" />
+        </div>
+
+        <!-- Formulier -->
+        <div class="contact-form reveal" data-delay="1">
           <form data-demo>
             <div class="field">
               <label for="naam">Naam</label>
-              <input id="naam" type="text" placeholder="Uw naam" required />
+              <input id="naam" type="text" placeholder="Vul uw naam in aub" required />
             </div>
             <div class="field">
-              <label for="email">E-mailadres voor contact</label>
-              <input id="email" type="email" placeholder="naam@voorbeeld.be" required />
+              <label for="email">E-mailadres voor contact *</label>
+              <input id="email" type="email" placeholder="Vul uw e-mailadres in aub" required />
             </div>
             <div class="field">
-              <label for="bericht">Bericht voor LN Motors</label>
-              <textarea id="bericht" rows="6" placeholder="Waarmee kunnen we u helpen?" required></textarea>
+              <label for="bericht">Bericht voor LN Motors *</label>
+              <textarea id="bericht" rows="7" placeholder="Schrijf hier uw bericht" required></textarea>
             </div>
-            <button class="btn btn-primary" type="submit">Verzenden</button>
+            <button class="btn btn-primary btn-pill" type="submit">Verstuur uw bericht nu</button>
             <p class="form-note muted" style="margin-top:14px;font-size:.9rem;"></p>
           </form>
         </div>
 
-        <!-- Info -->
-        <div>
-          <h2 style="margin-bottom:24px;">Contactgegevens</h2>
-          <div class="info-row">
-            <div>
-              <strong>Telefoon</strong>
-              <a href="tel:+32497412470">+32 497 41 24 70</a>
-              <span class="muted"> — ook via WhatsApp</span>
-            </div>
-          </div>
-          <div class="info-row">
-            <div>
-              <strong>E-mail</strong>
-              <a href="mailto:info@lnmotors.be">info@lnmotors.be</a>
-              <p class="muted" style="font-size:.9rem;margin-top:4px;">Wij beantwoorden mails gewoonlijk binnen de 12 uur.</p>
-            </div>
-          </div>
-          <div class="info-row">
-            <div>
-              <strong>Adres</strong>
-              Kunstdal 7F, 9900 Eeklo, België
-            </div>
-          </div>
-          <div class="info-row">
-            <div>
-              <strong>Openingsuren</strong>
-              Enkel op afspraak
-            </div>
-          </div>
-          <div class="info-row" style="border-bottom:0;">
-            <div>
-              <strong>BTW</strong>
-              BE1014.535.470
-            </div>
-          </div>
-
-          <div style="margin-top:24px;">
-            <iframe
-              class="map"
-              src="https://www.google.com/maps?q=Kunstdal%207F,%209900%20Eeklo,%20Belgi%C3%AB&output=embed"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Locatie LN Motors"></iframe>
-          </div>
-        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- LOCALISATIE / ROUTEBESCHRIJVING -->
+  <section class="bg-soft">
+    <div class="container">
+      <div class="split reveal">
+        <div class="split-text">
+          <h2 style="margin-bottom:28px;">Localisatie</h2>
+          <p><strong>Locatie</strong></p>
+          <p class="muted" style="margin-bottom:24px;">Kunstdal 7F, 9900 Eeklo</p>
+
+          <p><strong>Routebeschrijving vanaf de N9:</strong></p>
+          <ol class="route-steps">
+            <li>Verlaat de <strong>N9</strong> en <strong>sla af naar Brugsesteenweg</strong>.</li>
+            <li><strong>Na 50 meter, sla linksaf</strong> om op <strong>Brugsesteenweg</strong> te blijven.</li>
+            <li><strong>Na 100 meter, sla rechtsaf naar Kunstdal</strong>.</li>
+            <li><strong>Na 150 meter</strong> bereikt u <strong>Kunstdal 7F</strong>.</li>
+          </ol>
+
+          <p style="margin-top:24px;"><strong>Openingsuren</strong></p>
+          <p class="muted">Enkel op afspraak</p>
+
+          <p style="margin-top:24px;"><strong>BTW</strong></p>
+          <p class="muted">BE1014.535.470</p>
+
+          <a class="btn btn-primary" style="margin-top:28px;" href="https://www.google.com/maps/dir/?api=1&destination=Kunstdal+7F,+9900+Eeklo,+Belgi%C3%AB" target="_blank" rel="noopener">Routebeschrijving openen</a>
+        </div>
+        <img class="route-map" src="img/route-kunstdal.png" alt="Routebeschrijving naar Kunstdal 7F, Eeklo" loading="lazy" />
+      </div>
+
+      <!-- Kaart, volledige breedte, gecentreerd -->
+      <iframe
+        class="map map-wide reveal"
+        src="https://www.google.com/maps?q=Kunstdal%207F,%209900%20Eeklo,%20Belgi%C3%AB&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Locatie LN Motors"></iframe>
     </div>
   </section>
 
@@ -118,6 +130,9 @@
           <div class="footer-social">
             <a href="https://www.facebook.com/profile.php?id=61564358799027" target="_blank" rel="noopener" aria-label="Facebook">f</a>
             <a href="https://www.instagram.com/lnmotors.be/" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+            <a class="whatsapp" href="https://wa.me/32497412470?text=Hallo%20LN%20Motors%2C%20ik%20heb%20een%20vraag." target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.512 5.26l-.999 3.648 3.736-.979a9.86 9.86 0 00.24.272zm5.4-13.392c-.197-.438-.404-.447-.591-.455l-.504-.006c-.175 0-.46.066-.7.33-.24.264-.916.895-.916 2.183 0 1.288.938 2.532 1.069 2.708.131.176 1.822 2.918 4.502 3.984 2.227.879 2.68.704 3.164.66.484-.044 1.561-.638 1.782-1.254.221-.616.221-1.144.155-1.254-.066-.11-.242-.176-.506-.308-.264-.132-1.561-.77-1.803-.858-.242-.088-.418-.132-.594.132-.176.264-.682.858-.836 1.034-.154.176-.308.198-.572.066-.264-.132-1.115-.411-2.124-1.311-.785-.701-1.315-1.566-1.469-1.83-.154-.264-.016-.407.116-.539.119-.118.264-.308.396-.462.132-.154.176-.264.264-.44.088-.176.044-.33-.022-.462-.066-.132-.58-1.426-.816-1.948z"/></svg>
+            </a>
           </div>
         </div>
         <div>
@@ -126,6 +141,8 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="actueel-aanbod.html">Actueel aanbod</a></li>
             <li><a href="verkocht.html">Verkocht</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="import-calculator.html">Import calculator</a></li>
             <li><a href="over-ons.html">Over ons</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
@@ -138,6 +155,7 @@
             <li><a href="mailto:info@lnmotors.be">info@lnmotors.be</a></li>
             <li>BTW: BE1014.535.470</li>
           </ul>
+          <a class="btn btn-footer" style="margin-top:18px;" href="https://www.google.com/maps/dir/?api=1&destination=Kunstdal+7F,+9900+Eeklo,+Belgi%C3%AB" target="_blank" rel="noopener">Routebeschrijving</a>
         </div>
       </div>
       <div class="footer-bottom">

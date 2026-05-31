@@ -19,6 +19,20 @@ document.querySelectorAll('.nav-links a').forEach(a => {
   }
 });
 
+// Reveal elementen zachtjes wanneer ze in beeld scrollen
+const revealEls = document.querySelectorAll('.reveal');
+if (revealEls.length) {
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+  revealEls.forEach(el => io.observe(el));
+}
+
 // Stop demo forms from navigating away; show a friendly confirmation
 document.querySelectorAll('form[data-demo]').forEach(form => {
   form.addEventListener('submit', e => {

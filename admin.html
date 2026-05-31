@@ -127,6 +127,32 @@
       <h2 style="font-size:1.5rem;margin:56px 0 8px;">Alle auto's</h2>
       <div id="car-list"></div>
 
+      <!-- IMPORT CALCULATOR INSTELLINGEN -->
+      <h2 style="font-size:1.5rem;margin:56px 0 8px;">Import calculator</h2>
+      <p class="muted" style="margin-bottom:20px;">Tarieven en vertrekpunt voor de <a href="import-calculator.html" target="_blank" rel="noopener">import calculator</a> op de website.</p>
+
+      <form id="calc-settings-form">
+        <div class="form-grid">
+          <div class="field">
+            <label for="set-base-fee">Vast starttarief (€, excl. btw)</label>
+            <input id="set-base-fee" type="number" step="0.01" min="0" placeholder="500" required />
+          </div>
+          <div class="field">
+            <label for="set-price-km">Prijs per kilometer (€)</label>
+            <input id="set-price-km" type="number" step="0.01" min="0" placeholder="0.75" required />
+          </div>
+          <div class="field">
+            <label for="set-vat">Btw-tarief (%)</label>
+            <input id="set-vat" type="number" step="0.1" min="0" placeholder="21" required />
+          </div>
+        </div>
+        <p class="muted" style="font-size:.82rem;margin:-6px 0 18px;">De km's worden berekend als de rij-afstand tussen het ophaaladres en het opleveradres die de klant ingeeft.</p>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-primary" type="submit">Tarieven opslaan</button>
+          <span id="calc-settings-note" class="muted" style="font-size:.9rem;"></span>
+        </div>
+      </form>
+
     </div>
   </section>
 

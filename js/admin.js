@@ -21,6 +21,7 @@ async function refreshSession() {
     loginView.style.display = "none";
     adminView.style.display = "block";
     laadBeheerlijst();
+    laadCalcInstellingen();
   } else {
     loginView.style.display = "block";
     adminView.style.display = "none";
@@ -76,6 +77,9 @@ function rowHtml(car) {
     ? '<span class="badge sold">Verkocht</span>'
     : '<span class="badge">Beschikbaar</span>';
 
+  const naarStatus = car.status === "verkocht" ? "beschikbaar" : "verkocht";
+  const statusLabel = car.status === "verkocht" ? "Terug in aanbod" : "Markeer verkocht";
+
   return `
     <div class="admin-row">
       ${thumb}
@@ -83,9 +87,17 @@ function rowHtml(car) {
         <strong>${car.merk} ${car.model}</strong> ${badge}<br>
         <span class="muted" style="font-size:.85rem;">${[car.bouwjaar, formatPrijs(car.prijs)].filter(Boolean).join(" · ")}</span>
       </div>
+      <button class="btn btn-primary btn-sm" onclick='wijzigStatus(${JSON.stringify(car.id)}, ${JSON.stringify(naarStatus)})'>${statusLabel}</button>
       <button class="btn btn-outline btn-sm" onclick='bewerkAuto(${JSON.stringify(car.id)})'>Bewerken</button>
       <button class="btn btn-outline btn-sm" onclick='verwijderAuto(${JSON.stringify(car.id)}, ${JSON.stringify(car.afbeeldingen || [])})'>Verwijderen</button>
     </div>`;
+}
+
+// --- Status wisselen (beschikbaar <-> verkocht) ------------
+async function wijzigStatus(id, nieuweStatus) {
+  const { error } = await db.from("cars").update({ status: nieuweStatus }).eq("id", id);
+  if (error) { alert("Status wijzigen mislukt: " + error.message); return; }
+  laadBeheerlijst();
 }
 
 // --- Foto's uploaden naar Storage --------------------------
@@ -191,6 +203,52 @@ async function verwijderAuto(id, afbeeldingen) {
   if (error) { alert("Verwijderen mislukt: " + error.message); return; }
   laadBeheerlijst();
 }
+
+// --- Import calculator-instellingen ------------------------
+const calcSettingsForm = document.getElementById("calc-settings-form");
+const calcSettingsNote = document.getElementById("calc-settings-note");
+
+async function laadCalcInstellingen() {
+  const { data, error } = await db
+    .from("settings")
+    .select("value")
+    .eq("key", "import_calculator")
+    .maybeSingle();
+
+  if (error) {
+    calcSettingsNote.textContent = "Fout bij laden: " + error.message;
+    return;
+  }
+
+  const v = (data && data.value) || {};
+  document.getElementById("set-base-fee").value = v.base_fee ?? 500;
+  document.getElementById("set-price-km").value = v.price_per_km ?? 0.75;
+  // btw als percentage tonen (0.21 -> 21)
+  document.getElementById("set-vat").value = ((v.vat_rate ?? 0.21) * 100).toFixed(1).replace(/\.0$/, "");
+}
+
+calcSettingsForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  calcSettingsNote.textContent = "Opslaan…";
+
+  const value = {
+    base_fee: Number(document.getElementById("set-base-fee").value),
+    price_per_km: Number(document.getElementById("set-price-km").value),
+    // percentage terug naar fractie (21 -> 0.21)
+    vat_rate: Number(document.getElementById("set-vat").value) / 100,
+  };
+
+  const { error } = await db
+    .from("settings")
+    .upsert({ key: "import_calculator", value, updated_at: new Date().toISOString() });
+
+  if (error) {
+    calcSettingsNote.textContent = "Fout: " + error.message;
+    return;
+  }
+  calcSettingsNote.textContent = "Opgeslagen!";
+  setTimeout(() => (calcSettingsNote.textContent = ""), 2500);
+});
 
 // --- Hulpjes -----------------------------------------------
 function numOrNull(v) { return v === "" || v == null ? null : Number(v); }

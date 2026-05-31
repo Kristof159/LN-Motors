@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Import calculator — LN Motors</title>
+  <meta name="description" content="Bereken direct de kostprijs om uw wagen te laten importeren door LN Motors. Voer een adres in Nederland, België of Duitsland in en zie meteen het transporttarief." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand"><img src="img/logo-black.png" alt="LN Motors" /></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="actueel-aanbod.html">Actueel aanbod</a></li>
+          <li><a href="verkocht.html">Verkocht</a></li>
+          <li><a href="performance.html">Performance</a></li>
+          <li><a href="import-calculator.html">Import calculator</a></li>
+          <li><a href="over-ons.html">Over ons</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="page-head">
+    <div class="container">
+      <div class="eyebrow">Import calculator</div>
+      <h1>Laat uw wagen importeren</h1>
+      <p>LN Motors haalt uw wagen op in Nederland, België of Duitsland. Geef hieronder het ophaaladres en het opleveradres in, en bereken meteen een richtprijs voor het transport.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="calc-grid">
+        <!-- Calculator -->
+        <div class="calc-panel">
+          <h2 style="margin-bottom:8px;">Bereken uw transportkost</h2>
+          <p class="muted" style="margin-bottom:24px;font-size:.95rem;">Geef het ophaaladres (waar de wagen staat) en het opleveradres (waar u hem wil ontvangen) in. We berekenen de rij-afstand tussen beide en de geschatte kost.</p>
+
+          <form id="calc-form" autocomplete="off">
+            <div class="field">
+              <label for="land">Land van ophaling</label>
+              <select id="land">
+                <option value="">Alle landen (NL, BE, DE)</option>
+                <option value="nl">Nederland</option>
+                <option value="be">België</option>
+                <option value="de">Duitsland</option>
+              </select>
+            </div>
+
+            <div class="field calc-autocomplete">
+              <label for="adres-ophaal">Ophaaladres <span class="muted">(waar de wagen staat)</span></label>
+              <input id="adres-ophaal" type="text" placeholder="Straat, huisnummer, postcode, plaats" required aria-autocomplete="list" aria-expanded="false" />
+              <ul id="ophaal-suggesties" class="ac-list" role="listbox" hidden></ul>
+            </div>
+
+            <div class="field calc-autocomplete">
+              <label for="adres-oplever">Opleveradres <span class="muted">(waar u hem wil ontvangen)</span></label>
+              <input id="adres-oplever" type="text" placeholder="Straat, huisnummer, postcode, plaats" required aria-autocomplete="list" aria-expanded="false" />
+              <ul id="oplever-suggesties" class="ac-list" role="listbox" hidden></ul>
+            </div>
+
+            <button class="btn btn-primary" type="submit" id="calc-btn">Bereken kost</button>
+            <p class="form-note muted" id="calc-status" style="margin-top:14px;font-size:.9rem;"></p>
+          </form>
+
+          <!-- Result -->
+          <div class="calc-result" id="calc-result" hidden>
+            <div class="result-head">
+              <span class="eyebrow">Geschatte transportkost</span>
+              <div class="result-total" id="result-total">— €</div>
+              <span class="muted" id="result-total-incl"></span>
+            </div>
+            <div class="result-breakdown">
+              <div class="result-row">
+                <span>Vast starttarief</span>
+                <span id="result-base">€ 500,00</span>
+              </div>
+              <div class="result-row">
+                <span>Rij-afstand (ophaal → oplever)</span>
+                <span id="result-distance">— km</span>
+              </div>
+              <div class="result-row">
+                <span>Kilometervergoeding <span class="muted" data-km-rate>(€ 0,75 / km)</span></span>
+                <span id="result-km-cost">— €</span>
+              </div>
+              <div class="result-row result-row-total">
+                <span>Totaal (excl. btw)</span>
+                <span id="result-excl">— €</span>
+              </div>
+            </div>
+            <p class="muted" style="font-size:.85rem;margin-top:18px;">
+              Dit is een automatische richtprijs op basis van de rij-afstand tussen het ophaal- en opleveradres. De definitieve prijs hangt af van het type wagen en de afspraken. Contacteer ons voor een exacte offerte.
+            </p>
+            <a class="btn btn-whatsapp" id="result-whatsapp" href="#" target="_blank" rel="noopener" style="margin-top:8px;">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.512 5.26l-.999 3.648 3.736-.979a9.86 9.86 0 00.24.272zm5.4-13.392c-.197-.438-.404-.447-.591-.455l-.504-.006c-.175 0-.46.066-.7.33-.24.264-.916.895-.916 2.183 0 1.288.938 2.532 1.069 2.708.131.176 1.822 2.918 4.502 3.984 2.227.879 2.68.704 3.164.66.484-.044 1.561-.638 1.782-1.254.221-.616.221-1.144.155-1.254-.066-.11-.242-.176-.506-.308-.264-.132-1.561-.77-1.803-.858-.242-.088-.418-.132-.594.132-.176.264-.682.858-.836 1.034-.154.176-.308.198-.572.066-.264-.132-1.115-.411-2.124-1.311-.785-.701-1.315-1.566-1.469-1.83-.154-.264-.016-.407.116-.539.119-.118.264-.308.396-.462.132-.154.176-.264.264-.44.088-.176.044-.33-.022-.462-.066-.132-.58-1.426-.816-1.948z"/></svg>
+              Vraag offerte via WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="calc-map-wrap">
+          <iframe
+            id="calc-map"
+            class="map calc-map"
+            src="https://www.google.com/maps?q=Belgi%C3%AB&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Route van ophaaladres naar opleveradres"></iframe>
+          <p class="muted" style="font-size:.85rem;margin-top:12px;">De kaart toont de route van het ophaaladres naar het opleveradres.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand"><img src="img/logo-black.png" alt="LN Motors" /></div>
+          <p style="max-width:340px;">Goede auto. Goede service. Geen excuses. Uw partner voor de aankoop, het onderhoud en de herstelling van uw wagen in Eeklo.</p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/profile.php?id=61564358799027" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+            <a href="https://www.instagram.com/lnmotors.be/" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+            <a class="whatsapp" href="https://wa.me/32497412470?text=Hallo%20LN%20Motors%2C%20ik%20heb%20een%20vraag." target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.512 5.26l-.999 3.648 3.736-.979a9.86 9.86 0 00.24.272zm5.4-13.392c-.197-.438-.404-.447-.591-.455l-.504-.006c-.175 0-.46.066-.7.33-.24.264-.916.895-.916 2.183 0 1.288.938 2.532 1.069 2.708.131.176 1.822 2.918 4.502 3.984 2.227.879 2.68.704 3.164.66.484-.044 1.561-.638 1.782-1.254.221-.616.221-1.144.155-1.254-.066-.11-.242-.176-.506-.308-.264-.132-1.561-.77-1.803-.858-.242-.088-.418-.132-.594.132-.176.264-.682.858-.836 1.034-.154.176-.308.198-.572.066-.264-.132-1.115-.411-2.124-1.311-.785-.701-1.315-1.566-1.469-1.83-.154-.264-.016-.407.116-.539.119-.118.264-.308.396-.462.132-.154.176-.264.264-.44.088-.176.044-.33-.022-.462-.066-.132-.58-1.426-.816-1.948z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4>Navigatie</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="actueel-aanbod.html">Actueel aanbod</a></li>
+            <li><a href="verkocht.html">Verkocht</a></li>
+            <li><a href="performance.html">Performance</a></li>
+            <li><a href="import-calculator.html">Import calculator</a></li>
+            <li><a href="over-ons.html">Over ons</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li>Kunstdal 7F<br>9900 Eeklo, België</li>
+            <li><a href="tel:+32497412470">+32 497 41 24 70</a></li>
+            <li><a href="mailto:info@lnmotors.be">info@lnmotors.be</a></li>
+            <li>BTW: BE1014.535.470</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 LN Motors. Alle rechten voorbehouden.</span>
+        <a href="privacy-policy.html">Privacybeleid</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/import-calculator.js"></script>
+</body>
+</html>

@@ -21,7 +21,7 @@ function carCard(car) {
     .join("");
 
   return `
-    <article class="card">
+    <article class="card reveal">
       <div class="card-img"><img src="${foto}" alt="${car.merk} ${car.model}" loading="lazy"></div>
       <div class="card-body">
         ${badge}
@@ -60,4 +60,23 @@ async function laadAutos(status, containerId) {
   }
 
   container.innerHTML = data.map(carCard).join("");
+  revealOnScroll(container);
+}
+
+// Laat kaarten één voor één naar boven komen tijdens het scrollen
+function revealOnScroll(container) {
+  const cards = container.querySelectorAll(".card.reveal");
+  if (!("IntersectionObserver" in window)) {
+    cards.forEach(c => c.classList.add("is-visible"));
+    return;
+  }
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
+  cards.forEach(c => observer.observe(c));
 }
